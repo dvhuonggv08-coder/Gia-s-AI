@@ -1,45 +1,39 @@
-let chatBox = document.getElementById("chatBox")
+const API_KEY = "DÁN_API_GEMINI_VÀO_ĐÂY";
 
-let history = []
+let chatBox = document.getElementById("chatBox");
+
+let history = [];
 
 async function sendMessage(){
 
-let input = document.getElementById("userInput").value
+let input = document.getElementById("userInput").value;
 
-if(input=="") return
+if(input=="") return;
 
-chatBox.innerHTML += "<div class='user'><b>Học sinh:</b> "+input+"</div>"
+chatBox.innerHTML += "<div class='user'>👨‍🎓 "+input+"</div>";
 
-history.push({role:"user",content:input})
+document.getElementById("userInput").value="";
 
-document.getElementById("userInput").value=""
+history.push({role:"user",parts:[{text:input}]});
 
-let response = await fetch("https://api.openai.com/v1/chat/completions",{
-method:"POST",
-headers:{
-"Content-Type":"application/json",
-"Authorization":"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"
-},
-body:JSON.stringify({
-model:"gpt-4o-mini",
-messages:[
+let response = await fetch(
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="+API_KEY,
 {
-role:"system",
-content:"Bạn là gia sư Tin học cho học sinh Việt Nam. Hãy giải thích dễ hiểu và đưa ví dụ C++ Python Scratch."
-},
-...history
-]
+method:"POST",
+headers:{ "Content-Type":"application/json"},
+body:JSON.stringify({
+contents:history
 })
-})
+});
 
-let data = await response.json()
+let data = await response.json();
 
-let reply = data.choices[0].message.content
+let reply = data.candidates[0].content.parts[0].text;
 
-chatBox.innerHTML += "<div class='ai'><b>AI:</b> "+reply+"</div>"
+chatBox.innerHTML += "<div class='ai'>🤖 "+reply+"</div>";
 
-history.push({role:"assistant",content:reply})
+history.push({role:"model",parts:[{text:reply}]});
 
-chatBox.scrollTop = chatBox.scrollHeight
+chatBox.scrollTop = chatBox.scrollHeight;
 
 }
