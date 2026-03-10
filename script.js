@@ -12,7 +12,7 @@ chatBox.innerHTML += `<div class="user">👨‍🎓 ${input}</div>`;
 document.getElementById("userInput").value="";
 
 let response = await fetch(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent;
 {
 method:"POST",
 headers:{
@@ -27,7 +27,7 @@ parts:[{text:input}]
 
 let data = await response.json();
 
-const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "AI không trả lời";
+const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "AI chưa trả lời.";
 
 chatBox.innerHTML += `<div class="ai">🤖 ${reply}</div>`;
 
