@@ -1,26 +1,45 @@
-function sendMessage() {
+let chatBox = document.getElementById("chatBox")
 
-let input = document.getElementById("userInput");
-let message = input.value;
+let history = []
 
-let chatBox = document.getElementById("chatBox");
+async function sendMessage(){
 
-chatBox.innerHTML += "<p><b>Bạn:</b> " + message + "</p>";
+let input = document.getElementById("userInput").value
 
-let reply = "";
+if(input=="") return
 
-if(message.toLowerCase().includes("c++")){
-reply = "C++ là một ngôn ngữ lập trình mạnh mẽ, thường dùng để viết phần mềm, game và hệ điều hành.";
-}
-else if(message.toLowerCase().includes("python")){
-reply = "Python là ngôn ngữ lập trình dễ học, được dùng nhiều trong AI và khoa học dữ liệu.";
-}
-else{
-reply = "AI Gia Sư đang học thêm kiến thức. Thầy hãy bổ sung dữ liệu cho tôi nhé.";
-}
+chatBox.innerHTML += "<div class='user'><b>Học sinh:</b> "+input+"</div>"
 
-chatBox.innerHTML += "<p><b>AI:</b> " + reply + "</p>";
+history.push({role:"user",content:input})
 
-input.value = "";
+document.getElementById("userInput").value=""
+
+let response = await fetch("https://api.openai.com/v1/chat/completions",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer API_KEY"
+},
+body:JSON.stringify({
+model:"gpt-4o-mini",
+messages:[
+{
+role:"system",
+content:"Bạn là gia sư Tin học cho học sinh Việt Nam. Hãy giải thích dễ hiểu và đưa ví dụ C++ Python Scratch."
+},
+...history
+]
+})
+})
+
+let data = await response.json()
+
+let reply = data.choices[0].message.content
+
+chatBox.innerHTML += "<div class='ai'><b>AI:</b> "+reply+"</div>"
+
+history.push({role:"assistant",content:reply})
+
+chatBox.scrollTop = chatBox.scrollHeight
 
 }
