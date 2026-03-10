@@ -1,4 +1,4 @@
-const API_KEY = "DÁN_API_GEMINI_VÀO_ĐÂY";
+const API_KEY = "AIzaSyBxsqDEG3io2XqyVDM-ZYabaP47gbw7OZo";
 
 let chatBox = document.getElementById("chatBox");
 
