@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyAGhGwybCBmpZnx0XXbMwCiOYssg5_5ApY";
+const API_KEY = "AIzaSyAFErA40r1QxWc1KIduoC19t3aLcD2DIf0";
 
 async function sendMessage(){
 
@@ -12,7 +12,7 @@ if(userText.trim()=="") return;
 chatBox.innerHTML += "<p><b>Bạn:</b> "+userText+"</p>";
 
 const response = await fetch(
-"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=AIzaSyAGhGwybCBmpZnx0XXbMwCiOYssg5_5ApY",
+`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
 {
 method:"POST",
 headers:{
@@ -34,7 +34,8 @@ const data = await response.json();
 
 console.log(data);
 
-const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "AI chưa trả lời";
+const aiReply =
+data?.candidates?.[0]?.content?.parts?.[0]?.text || "AI chưa trả lời";
 
 chatBox.innerHTML += "<p><b>AI:</b> "+aiReply+"</p>";
 
