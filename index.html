@@ -1,83 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<title>AI Gia Sư Tin học</title>
-<style>
-body{font-family:Arial;background:#f0f0f0;}
-.chat{width:500px;margin:auto;margin-top:40px;background:white;padding:20px;border-radius:10px;}
-#messages{height:300px;border:1px solid #ccc;overflow:auto;padding:10px;margin-bottom:10px;}
-input{width:75%;padding:10px;}
-button{padding:10px;}
-</style>
+<meta charset="UTF-8">
+<title>AI Gia Sư Tin Học</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="chat">
+<div class="chat-container">
 
-<h2>🤖 AI Gia Sư Tin học</h2>
+<div class="header">
+🤖 AI Gia Sư Tin học
+</div>
 
-<div id="chatBox" style="border:1px solid #ccc;height:200px;padding:10px;margin-bottom:10px;"></div>
+<div id="chatBox" class="chat-box"></div>
 
-<input id="userInput" type="text" placeholder="Nhập câu hỏi...">
-
+<div class="input-area">
+<input id="userInput" placeholder="Nhập câu hỏi Tin học...">
 <button onclick="sendMessage()">Gửi</button>
-
-<script src="script.js"></script>
-
+</div>
 
 </div>
 
-<script>
+<script src="script.js"></script>
 
-async function ask(){
-
-let q=document.getElementById("question").value;
-
-let box=document.getElementById("messages");
-
-box.innerHTML+="<p><b>Bạn:</b> "+q+"</p>";
-
-let res=await fetch("https://api.openai.com/v1/chat/completions",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json",
-"Authorization":"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"
-},
-
-body:JSON.stringify({
-
-model:"gpt-4o-mini",
-
-messages:[
-{
-role:"system",
-content:"Bạn là AI gia sư Tin học, giải thích dễ hiểu cho học sinh."
-},
-{
-role:"user",
-content:q
-}
-
-]
-
-})
-
-});
-
-let data=await res.json();
-
-let answer=data.choices[0].message.content;
-
-box.innerHTML+="<p><b>AI:</b> "+answer+"</p>";
-
-}
-
-</script>
- <script src="script.js"></script> 
-</body> 
- 
-
-</html>   
+</body>
+</html>
