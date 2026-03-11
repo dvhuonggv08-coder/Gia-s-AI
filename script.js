@@ -1,46 +1,47 @@
-const API_KEY = "AIzaSyC151I6AIyeCFAAL6s3x-tUfen6zwBa9yM";
+async function askAI(){
+
+const apiKey=document.getElementById("apiKey").value
+
+const question=document.getElementById("question").value
+
+const chatBox=document.getElementById("chatBox")
+
+chatBox.innerHTML+=
+`<div class="messageUser"><b>Bạn:</b> ${question}</div>`
 
 
-async function sendMessage(){
-
-const input = document.getElementById("userInput");
-const chatBox = document.getElementById("chatBox");
-
-const userText = input.value;
-
-if(userText.trim()=="") return;
-
-chatBox.innerHTML += "<p><b>Bạn:</b> "+userText+"</p>";
-
-const response = await fetch(
-https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=API_KEY;
+const response=await fetch(
+`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
 {
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
-body: JSON.stringify({
-  contents: [{
-    parts: [{
-      text: q
-    }]
-  }]
-});
 
-const data = await response.json();
+body:JSON.stringify({
 
-console.log(data);
-
-let aiReply = "AI lỗi";
-
-if(data.error){
-aiReply = data.error.message;
+contents:[
+{
+parts:[
+{
+text:
+"Bạn là gia sư lập trình. Hãy giải thích từng bước dễ hiểu: "+question
 }
-else if(data.candidates){
-aiReply = data.candidates[0].content.parts[0].text;
+]
 }
+]
 
-chatBox.innerHTML += "<p><b>AI:</b> "+aiReply+"</p>";
+})
 
-input.value="";
+})
+
+const data=await response.json()
+
+const reply=data.candidates[0].content.parts[0].text
+
+
+chatBox.innerHTML+=
+`<div class="messageAI"><b>AI:</b> ${reply}</div>`
+
 }
