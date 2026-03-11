@@ -1,5 +1,6 @@
 const API_KEY = "AIzaSyAFErA40r1QxWc1KIduoC19t3aLcD2DIf0";
 
+
 async function sendMessage(){
 
 const input = document.getElementById("userInput");
@@ -34,11 +35,13 @@ const data = await response.json();
 
 console.log(data);
 
-const aiReply =
-data?.candidates?.[0]?.content?.parts?.[0]?.text || "AI chưa trả lời";
+let aiReply="AI lỗi";
+
+if(data.candidates){
+aiReply = data.candidates[0].content.parts[0].text;
+}
 
 chatBox.innerHTML += "<p><b>AI:</b> "+aiReply+"</p>";
 
 input.value="";
-
 }
