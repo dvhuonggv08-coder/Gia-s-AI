@@ -1,25 +1,71 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<title>AI Gia Sư Tin Học</title>
+<title>AI Gia Sư Lập Trình</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<div class="chat-container">
+<header>
 
-<div class="header">
-🤖 AI Gia Sư Tin học
+<h2>🤖 AI Gia Sư Lập Trình</h2>
+
+<input 
+id="apiKey"
+placeholder="Nhập API Key Gemini">
+
+</header>
+
+
+<div class="main">
+
+<!-- BÊN TRÁI -->
+
+<div class="leftPanel">
+
+<h3>Nhập bài tập</h3>
+
+<textarea
+id="question"
+placeholder="Ví dụ: Viết chương trình C++ kiểm tra số nguyên tố"></textarea>
+
+<br><br>
+
+<input type="file" id="imageInput">
+
+<br><br>
+
+<button onclick="askAI()">
+
+Giải Bài
+
+</button>
+
 </div>
 
-<div id="chatBox"></div>
 
-<input id="userInput" type="text">
-<button onclick="sendMessage()">Gửi</button>
+<!-- BÊN PHẢI -->
 
-<script src="script.js"></script>
+<div class="chatPanel">
+
+<div id="chatBox">
+
+<p>
+
+🎓 AI Gia Sư đã sẵn sàng.<br>
+Hãy nhập bài tập bên trái.
+
+</p>
+
+</div>
+
+</div>
 
 </div>
 
