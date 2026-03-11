@@ -1,4 +1,4 @@
-const API_KEY = "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";
+const API_KEY = "AIzaSyC151I6AIyeCFAAL6s3x-tUfen6zwBa9yM";
 
 
 async function sendMessage(){
