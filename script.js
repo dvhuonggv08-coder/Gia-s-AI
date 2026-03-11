@@ -9,12 +9,12 @@ alert("Hãy nhập câu hỏi");
 return;
 }
 
-chatBox.innerHTML += `<p style="color:blue"><b>Bạn:</b> ${question}</p>`;
+chatBox.innerHTML += "<p style='color:blue'><b>Bạn:</b> "+question+"</p>";
 
 try{
 
 const response = await fetch(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
 {
 method:"POST",
 headers:{
@@ -36,22 +36,21 @@ const data = await response.json();
 
 console.log(data);
 
-if(data.candidates && data.candidates.length>0){
+if(data.candidates){
 
 const reply = data.candidates[0].content.parts[0].text;
 
-chatBox.innerHTML += `<p style="color:green"><b>AI:</b> ${reply}</p>`;
+chatBox.innerHTML += "<p style='color:green'><b>AI:</b> "+reply+"</p>";
 
 }else{
 
-chatBox.innerHTML += `<p style="color:red"><b>Lỗi từ Gemini:</b> ${data.error?.message || "Không có dữ liệu"}</p>`;
+chatBox.innerHTML += "<p style='color:red'>Lỗi từ Gemini</p>";
 
 }
 
-}catch(error){
+}catch(err){
 
-chatBox.innerHTML += `<p style="color:red">Không kết nối được AI</p>`;
-console.error(error);
+chatBox.innerHTML += "<p style='color:red'>Không kết nối được AI</p>";
 
 }
 
