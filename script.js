@@ -13,30 +13,15 @@ chatBox.innerHTML += `<p style="color:blue"><b>Bạn:</b> ${question}</p>`;
 
 try{
 
-const response = await fetch(
-"https://api.openai.com/v1/chat/completions",
-{
+const response = await fetch("/api/chat",{
 method:"POST",
 headers:{
-"Content-Type":"application/json",
-"Authorization":"Bearer "+apiKey
+"Content-Type":"application/json"
 },
 body:JSON.stringify({
-model:"gpt-4o-mini",
-messages:[
-{
-role:"system",
-content:"Bạn là gia sư lập trình cho học sinh. Hãy giải thích dễ hiểu."
-},
-{
-role:"user",
-content:question
-}
-]
+question: question
 })
-}
-);
-
+});
 const data = await response.json();
 
 console.log(data);
